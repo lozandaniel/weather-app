@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react'
 import './App.css'
-import WeatherForm from './components/WeatherForm'
-import WeatherInformation from './components/WeatherInformation'
+import { WeatherForm } from './components/WeatherForm'
+import { WeatherInformation } from './components/WeatherInformation'
+import { URL_API_WEATHER } from './utils'
 
 function App() {
   const [weather, setWeather] = useState(null)
@@ -11,13 +12,14 @@ function App() {
   }, [])
 
   function apiWeather(city = 'London') {
-    const URL_API = `https://api.openweathermap.org/data/2.5/weather?q=`
     const KEY_API = import.meta.env.VITE_API_KEY
     try {
-      fetch(`${URL_API}${city}&appid=${KEY_API}&lang=es`)
-        .then(res => res.json())
-        .then(data => setWeather(data))
-    } catch (error) { }
+      fetch(`${URL_API_WEATHER}${city}&appid=${KEY_API}&lang=es`)
+        .then((res) => res.json())
+        .then((data) => setWeather(data))
+    } catch (error) {
+      console.log('Error')
+    }
   }
 
   const changeCity = (city) => {
@@ -25,9 +27,9 @@ function App() {
   }
 
   return (
-    <div className='flex flex-col items-center justify-center container w-full px-4'>
+    <div className="flex flex-col items-center justify-center container w-full px-4">
       <WeatherForm changeCity={changeCity} />
-      {weather && (<WeatherInformation weather={weather} />)}
+      {weather && <WeatherInformation weather={weather} />}
     </div>
   )
 }

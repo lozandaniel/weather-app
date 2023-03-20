@@ -1,6 +1,4 @@
-
-function WeatherInformation({ weather }) {
-
+export function WeatherInformation({ weather }) {
   const tempKelvinToCelsius = () => {
     let temp = weather?.main?.temp
     if (temp !== undefined) {
@@ -14,7 +12,11 @@ function WeatherInformation({ weather }) {
         <h2 className="font-bold text-3xl">{weather?.name}</h2>
         <div className="flex items-center justify-center">
           <p className="text-2xl font-semibold">{tempKelvinToCelsius()}°C</p>
-          <img src={`http://openweathermap.org/img/wn/${weather?.weather?.[0]?.icon}@2x.png`} alt="weather icon" className="w-12 h-12" />
+          <img
+            src={`http://openweathermap.org/img/wn/${weather?.weather?.[0]?.icon}@2x.png`}
+            alt="weather icon"
+            className="w-12 h-12"
+          />
         </div>
         <p className="capitalize">{weather?.weather?.[0]?.description}</p>
       </div>
@@ -26,5 +28,3 @@ function WeatherInformation({ weather }) {
     </div>
   )
 }
-
-export default WeatherInformation
